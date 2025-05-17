@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage animations</title>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div id="animations-div">
+      <h3 class="text-center mt-1">Animations</h3>
+      <div
+        class="d-flex flex-column align-items-center"
+        id="animations-list"
+      ></div>
+    </div>
+    <script>
+      async function afficherAnimations() {
+        const animationsDiv = document.getElementById("animations-div");
+        const animationsList = document.getElementById("animations-list");
+
+        animationsList.innerHTML = "";
+
+        const animations = await fetchAnimations();
+        const activeAnimationIndex = await fetchCurrentAnimationIndex();
+
+        if (animations.length === 0) {
+          return;
+        }
+
+        animations.forEach((animation, index) => {
+          const container = document.createElement("div");
+          container.className = "d-flex align-items-center mb-2";
+
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.className = "btn-check";
+          input.name = "animationOptions";
+          input.id = `animation${index}`;
+          input.autocomplete = "off";
+          input.value = index;
+
+          const label = document.createElement("label");
+          label.className = "btn btn-outline-primary me-2";
+          label.htmlFor = input.id;
+          label.textContent = animation.name;
+
+          if (index === activeAnimationIndex) {
+            input.checked = true;
+            label.classList.add("active");
+          }
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.className = "btn btn-outline-danger btn-sm";
+          deleteBtn.textContent = "🗑️";
+          deleteBtn.onclick = async () => {
+            if (confirm(`Delete animation "${animation.name}" ?`)) {
+              try {
+                const response = await fetch(
+                  `http://192.168.4.1/api/animation/${index}`,
+                  {
+                    method: "DELETE",
+                  }
+                );
+
+                if (response.ok) {
+                  alert("Animation deleted!");
+                  afficherAnimations();
+                } else {
+                  const errText = await response.text();
+                  alert("Error while deleting animation: " + errText);
+                }
+              } catch (err) {
+                alert("Error while deleting animation:" + err);
+              }
+            }
+          };
+
+          input.addEventListener("change", async () => {
+            if (input.checked) {
+              document
+                .querySelectorAll("#animations-list label")
+                .forEach((label) => {
+                  label.classList.remove("active");
+                });
+
+              label.classList.add("active");
+
+              await fetch(`http://192.168.4.1/api/animation/${input.value}`, {
+                method: "POST",
+              });
+            }
+          });
+
+          animationsList.appendChild(input);
+          container.appendChild(label);
+          container.appendChild(deleteBtn);
+          animationsList.appendChild(container);
+        });
+      }
+      async function fetchAnimations() {
+        try {
+          const response = await fetch("http://192.168.4.1/api/animation");
+          if (!response.ok) {
+            throw new Error("Error fetching animations");
+          }
+          const data = await response.json();
+
+          return data;
+        } catch (err) {
+          console.error("Fetch error:", err);
+        }
+      }
+
+      async function fetchCurrentAnimationIndex() {
+        try {
+          const response = await fetch(
+            "http://192.168.4.1/api/animation/active"
+          );
+          if (!response.ok) {
+            throw new Error("Error fetching the animation index");
+          }
+          const text = await response.text();
+          const activeId = parseInt(text, 10);
+          console.log(activeId);
+
+          return activeId;
+        } catch (error) {
+          console.error(error);
+          return null;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        afficherAnimations();
+      });
+    </script>
+  </body>
+</html>
