@@ -22,15 +22,15 @@ Open an issue if you want another framework supported and I will do my best to i
 ## How to use
 
 1. Install the library using PlatformIO library install tool
-2. Copy the code in the [ESP32Usage.ino](examples/ESP32Usage.ino) in your main.cpp
+2. Copy the code in the [ESP32Usage.ino](https://github.com/FastLEDitor/FastLEDitor/blob/main/examples/ESP32Usage.ino) in your main.cpp
 3. Upload the code to your board
 4. Create a data folder in the root of your projet
-5. If using the web server, download the [animations.html](/data/animations.html) file and the [bootstrap](/data/bootstrap/) folder and place it in your data folder
+5. If using the web server, download the [animations.html](https://github.com/FastLEDitor/FastLEDitor/blob/main/data/animations.html) file and the [bootstrap](https://github.com/FastLEDitor/FastLEDitor/tree/main/data/bootstrap) folder and place it in your data folder
 6. Build and upload the filesystem image
 7. Use the [FastLEDitor animation creation tool](https://fastleditor.github.io/FastLEDitorAnimationCreator/) to create and upload animations
 8. Connect your led panel to your ESP32 (Default pin 17)
 
-If you are using the webserver, you can connect to the FastLEDitor hotspot with default password 12345678 or redefine it like in the [ESP32Usage.ino](/examples/ESP32Usage.ino) to change animations and settings.
+If you are using the webserver, you can connect to the FastLEDitor hotspot with default password 12345678 or redefine it like in the [ESP32Usage.ino](https://github.com/FastLEDitor/FastLEDitor/blob/main/examples/ESP32Usage.ino) to change animations and settings.
 
 ## Known bugs
 
