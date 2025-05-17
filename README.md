@@ -1,9 +1,9 @@
 # FastLEDitor
 
-FastLEDitor is a Arduino library that lets you upload animations created with the FastLEDitor animation creation tool directly to your board.
+FastLEDitor is a Arduino library that lets you upload animations created with the [FastLEDitor animation creation tool](https://fastleditor.github.io/FastLEDitorAnimationCreator/) directly to your board.
 
 ## Features
-- Upload animations directly from the LEDitor animation creation tool
+- Upload animations directly from the [LEDitor animation creation tool](https://fastleditor.github.io/FastLEDitorAnimationCreator/)
 - Display the saved animations
 - Save animations in the filesystem in binary format to save space
 - Hotspot with a web manager to choose animations and change config (If WiFi available)
