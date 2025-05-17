@@ -1,20 +1,24 @@
+#define AP_PASSWORD "87654321"
+#define LED_PIN_PANEL 17
+
 #include <Arduino.h>
-#include <FastLEDitor.h>
+#include <FastLEDitorController.h>
 #include <LittleFS.h>
 
-FastLEDitor::Controller* fastLEDitor = nullptr;
+FastLEDitor::FastLEDitorController* controller = nullptr;
+
 
 void setup() {
+  Serial.begin(115200);
   if (!LittleFS.begin())
   {
-    LittleFS.format();
     Serial.println("Failed to mount littlefs");
   }
-  fastLEDitor = new FastLEDitor::Controller();
-  fastLEDitor->useWebServer();
-  fastLEDitor->init();
+  controller = new FastLEDitor::FastLEDitorController();
+  controller->useWebServer();
+  controller->init();
 }
 
 void loop() {
-  fastLEDitor->tick();
+  controller->tick();
 }
