@@ -22,7 +22,7 @@ Open an issue if you want another framework supported and I will do my best to i
 ## How to use
 
 1. Install the library using PlatformIO library install tool
-2. Copy the code in the [BasicUsage.ino](examples/BasicUsage.ino) in your main.cpp
+2. Copy the code in the [ESP32Usage.ino](examples/ESP32Usage.ino) in your main.cpp
 3. Upload the code to your board
 4. Create a data folder in the root of your projet
 5. If using the web server, download the [animations.html](/data/animations.html) file and the [bootstrap](/data/bootstrap/) folder and place it in your data folder
