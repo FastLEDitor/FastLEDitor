@@ -1,23 +1,25 @@
 #include <AnimationManager.h>
 #include <WebSerialManager.h>
-#if defined(ESP32)
+
 #include <WebManager.h>
-#endif
 
 namespace FastLEDitor
 {
-    class FastLEDitor
+    class FastLEDitorController
     {
     public:
-        FastLEDitor();
+        FastLEDitorController();
         void tick();
+        void init();
+        bool isInit();
+        void useWebServer();
     private:
         AnimationManager *m_animationManager = nullptr;
-        WebSerialManager* m_webSerialManager = nullptr;
-#if defined(ESP32)
+        WebSerialManager *m_webSerialManager = nullptr;
+
+        bool isInitiatied = false;
+
         WebManager *m_webManager = nullptr;
         bool usingWebServer = false;
-#endif
-
     };
 }

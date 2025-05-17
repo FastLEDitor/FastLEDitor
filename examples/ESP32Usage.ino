@@ -2,7 +2,7 @@
 #include <FastLEDitor.h>
 #include <LittleFS.h>
 
-FastLEDitor::FastLEDitor* fastLEDitor = nullptr;
+FastLEDitor::Controller* fastLEDitor = nullptr;
 
 void setup() {
   if (!LittleFS.begin())
@@ -10,7 +10,9 @@ void setup() {
     LittleFS.format();
     Serial.println("Failed to mount littlefs");
   }
-  fastLEDitor = new FastLEDitor::FastLEDitor();
+  fastLEDitor = new FastLEDitor::Controller();
+  fastLEDitor->useWebServer();
+  fastLEDitor->init();
 }
 
 void loop() {

@@ -33,7 +33,12 @@ namespace FastLEDitor
                         });
 
         m_webServer->onNotFound([this]()
-                                { Serial.println(this->m_webServer->uri()); });
+                                {  });
+
+        m_webServer->serveStatic("/bootstrap/js/bootstrap.min.js", LittleFS, "/bootstrap/js/bootstrap.min.js");
+        m_webServer->serveStatic("/bootstrap/css/bootstrap.min.css", LittleFS, "/bootstrap/css/bootstrap.min.css");
+        m_webServer->serveStatic("/bootstrap/js/bootstrap.min.js.map", LittleFS, "/bootstrap/js/bootstrap.min.js.map");
+        m_webServer->serveStatic("/bootstrap/css/bootstrap.min.css.map", LittleFS, "/bootstrap/css/bootstrap.min.css.map");
 
         m_webServer->begin();
     }
@@ -77,14 +82,22 @@ namespace FastLEDitor
     void WebManager::selectAnimation(uint8_t id)
     {
         m_delPanelManager->setCurrentAnimationIndex(id);
-        
-            m_webServer->send(200, "application/json", "Animation selected succesfully");
 
-
+        m_webServer->send(200, "application/json", "Animation selected succesfully");
     }
 
     void WebManager::handleRoot()
     {
+        File animationsPage = LittleFS.open("/animations.html");
+
+        if (!animationsPage)
+        {
+            m_webServer->send(500, "text/plain", "Failed to open animations.html");
+            return;
+        }
+
+        m_webServer->streamFile(animationsPage, "text/html");
+        animationsPage.close();
     }
 
     void WebManager::tick()

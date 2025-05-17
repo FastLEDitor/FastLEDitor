@@ -176,6 +176,8 @@ namespace FastLEDitor
             return;
         }
 
+        
+
         if (currentTime - lastFrameUpdateTime >= 200)
         {
             lastFrameUpdateTime = currentTime;
@@ -185,20 +187,17 @@ namespace FastLEDitor
                 this->m_panel->eraseScreen();
             }
 
+            currentAnimation.nextFrame();
+
             const Frame &currentFrame = currentAnimation.getFrame(currentFrameIndex);
 
-            
             if (currentFrameIndex == animationFrames.size() - 1)
             {
                 if (this->animationState == AnimationState::Increment)
                 {
-                    currentAnimation.setCurrentFrameIndex(0);
                     this->setCurrentAnimationIndex((currentAnimationIndex + 1) % this->animations.size());
+                    currentAnimation.setCurrentFrameIndex(0);
                 }
-            }
-            else
-            {
-                currentAnimation.nextFrame();
             }
             this->m_panel->drawFrame(currentFrame);
             m_panel->show();

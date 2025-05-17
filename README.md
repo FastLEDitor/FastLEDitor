@@ -11,7 +11,8 @@ FastLEDitor is a Arduino library that lets you upload animations created with th
 ## Supported frameworks
 
 - espressif32 - [Supported boards](https://registry.platformio.org/platforms/platformio/espressif32/boards)
-- atmelavr - [Supported boards](https://registry.platformio.org/platforms/platformio/atmelavr/boards)
+
+Open an issue if you want another framework supported and I will do my best to implement it.
 
 ## Supported LED panels
 

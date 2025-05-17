@@ -24,7 +24,9 @@ namespace FastLEDitor
         int currentAnimationIndex = 0;     // Index of the current animation
 
         unsigned long lastFrameUpdateTime = 0; // Temps du dernier changement de frame
-        AnimationState animationState = AnimationState::Increment;
+
+        AnimationState animationState = AnimationState::Static;
+
     public:
         AnimationManager();
 
